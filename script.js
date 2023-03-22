@@ -1,20 +1,19 @@
-const form = document.querySelector('form');
-const input = document.querySelector('#tarefa');
-const lista = document.querySelector('#lista-tarefas');
+$(document).ready(function() {
+	const form = $('form');
+	const input = $('#tarefa');
+	const lista = $('#lista-tarefas');
 
-form.addEventListener('submit', (event) => {
-	event.preventDefault();
-	if (input.value.trim()) {
-		const tarefa = document.createElement('li');
-		tarefa.innerText = input.value;
-		tarefa.style.cursor = "pointer";
-		lista.appendChild(tarefa);
-		input.value = '';
-	}
-});
+	form.submit(function(event) {
+		event.preventDefault();
+		if (input.val().trim()) {
+			const tarefa = $('<li>').text(input.val());
+			tarefa.css('cursor', 'pointer');
+			lista.append(tarefa);
+			input.val('');
+		}
+	});
 
-lista.addEventListener('click', (event) => {
-	if (event.target.tagName === 'LI') {
-		event.target.classList.toggle('completed');
-	}
+	lista.on('click', 'li', function() {
+		$(this).toggleClass('completed');
+	});
 });
